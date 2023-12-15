@@ -21,8 +21,9 @@ $(function() {
             fetch(urlForecast).then(function (weather){
                 return weather.json();
             }).then(function(wData){
+                console.log(wData.list)
                 for(var i=0; i < wData.list.length; i++){
-
+                    var city = wData.list
                 }
                 
             })
