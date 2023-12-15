@@ -8,6 +8,10 @@ $(function() {
         fetch(urlCountry).then(function (response){
             return response.json();
         }).then(function(data){
+            if (data.length === 0){
+                alert('not a city');
+                return
+            }
             console.log(data)
             var lat = data[0].lat;
             var lon = data[0].lon;
@@ -18,7 +22,7 @@ $(function() {
                 return weather.json();
             }).then(function(wData){
                 for(var i=0; i < wData.list.length; i++){
-                    
+
                 }
                 
             })
