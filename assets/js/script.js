@@ -29,6 +29,13 @@ $(function() {
                     var temp = wData.list[i].main.temp + "C";
                     var humidity = wData.list[i].main.humidity;
                     var windSpeed = wData.list[i].wind.speed;
+                    if (i == 0){
+                        createTables(city, date, weather, temp, humidity, windSpeed, '#mainWeather');
+                    }
+                    else{
+                        createTables(city, date, weather, temp, humidity, windSpeed, '#otherWeather');
+                    }
+                    
                 }
                 
             })
@@ -37,3 +44,16 @@ $(function() {
     });
     
 });
+
+function createTables(city, date, weather, temp, humidity, windSpeed, check){
+    var div = $('<div>');
+    var createCity = $('<p>').text(city);
+    var createDate = $('<p>').text(date);
+    var createWeather = $('<p>').text(weather);
+    var createTemp = $('<p>').text(temp);
+    var createHumidity = $('<p>').text(humidity);
+    var createSpeed = $('<p>').text(windSpeed);
+
+    div.append(createCity).append(createDate).append(createWeather).append(createTemp).append(createHumidity).append(createSpeed);
+    $(check).append(div);
+}
