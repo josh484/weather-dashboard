@@ -17,13 +17,18 @@ $(function() {
             var lon = data[0].lon;
             var country = data[0].state;
 
-            urlForecast = "http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ lon +"&appid=59b2f08f8e4313264cf09ebd3d5c3e14&cnt=3&units=metric"
+            urlForecast = "http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ lon +"&appid=59b2f08f8e4313264cf09ebd3d5c3e14&cnt=10&units=metric"
             fetch(urlForecast).then(function (weather){
                 return weather.json();
             }).then(function(wData){
-                console.log(wData.list)
+                console.log(wData)
                 for(var i=0; i < wData.list.length; i++){
-                    var city = wData.list
+                    var city = wData.city.name;
+                    var date = wData.list[i].dat_txt;
+                    var weather = wData.list[i].weather[0].main;
+                    var temp = wData.list[i].main.temp + "C";
+                    var humidity = wData.list[i].main.humidity;
+                    var windSpeed = wData.list[i].wind.speed;
                 }
                 
             })
