@@ -21,14 +21,16 @@ $(function () {
 
 function createTables(city, date, weather, temp, humidity, windSpeed) {
     var weatherImg = $('<img>');
+    var printTime = dayjs(date).format('DD/MM/YY')
+    var createCity = $('<p>').text(city + " " + printTime);
+    createCity.append(weatherImg);
     console.log(weather);
     if (weather == "Clouds") {
         weatherImg.attr('src', './assets/icons/cloudy-50.png');
     }
     var div = $('<div>');
-    var printTime = dayjs(date).format('DD/MM/YY')
-    var createCity = $('<p>').text(city + " " + printTime);
-    createCity.append(weatherImg);
+    
+
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
     var createSpeed = $('<p>').text(windSpeed);
@@ -46,16 +48,10 @@ function createSTables(date, weather, temp, humidity) {
     var createDate = $('<p>').text(printTime + " " + weather);
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
-    var compareTime = dayjs(date).format('HH:mm:ss');
-    if (compareTime == "00:00:00") {
+
         cardBody.append(createDate).append(createTemp).append(createHumidity);
         card.append(cardBody);
         $('#otherWeather').append(card);
-
-    } else {
-        return;
-    }
-
 
 }
 
@@ -114,6 +110,7 @@ function getCountry(country) {
         fetch(urlForecast).then(function (weather) {
             return weather.json();
         }).then(function (wData) {
+            var pastTime = 0;
             console.log(wData)
             for (var i = 0; i < wData.list.length; i++) {
                 var city = wData.city.name;
@@ -122,12 +119,20 @@ function getCountry(country) {
                 var temp = wData.list[i].main.temp + "C";
                 var humidity = wData.list[i].main.humidity;
                 var windSpeed = wData.list[i].wind.speed;
-
+                console.log(date);
                 if (i == 0) {
                     createTables(city, date, weather, temp, humidity, windSpeed);
                 }
                 else {
-                    createSTables(date, weather, temp, humidity);
+                    var compareTime = dayjs(date).format('DD');
+                    if(dayjs(wData.list[0].dt_txt).format('DD') != compareTime){
+                        if (pastTime != compareTime) {
+                            pastTime = compareTime;
+                            createSTables(date, weather, temp, humidity);
+                             } 
+                    }
+                    
+                    
                 }
 
             }
