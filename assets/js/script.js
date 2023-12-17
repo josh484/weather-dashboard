@@ -1,6 +1,7 @@
 $(function() {
     var countryArray = [];
-    
+    getSearches();
+
     $('#search-button').on('click', function(event){
         country = $('#search-input').val();
         emptyClick();
@@ -103,8 +104,16 @@ function saveCountry(arr){
         });
     }
     
-    
+    localStorage.setItem("searches", JSON.stringify(arr));
 
+}
+
+function getSearches(){
+    countryArray = JSON.parse(localStorage.getItem("searches"));
+    if (!countryArray) {
+        return countryArray = []
+    }
+    saveCountry(countryArray);
 }
 
 function emptyClick(){
