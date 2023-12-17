@@ -48,28 +48,28 @@ $(function() {
 function createTables(city, date, weather, temp, humidity, windSpeed){
     var div = $('<div>');
     var printTime = dayjs(date).format('DD/MM/YY')
-    var createCity = $('<p>').text(city);
-    var createDate = $('<p>').text(printTime);
-    var createWeather = $('<p>').text(weather);
+    var createCity = $('<p>').text(city + " " + printTime + " " + weather);
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
     var createSpeed = $('<p>').text(windSpeed);
 
-    div.append(createCity).append(createDate).append(createWeather).append(createTemp).append(createHumidity).append(createSpeed);
+    div.append(createCity).append(createTemp).append(createHumidity).append(createSpeed);
     $('#mainWeather').append(div);
 }
 
 function createSTables(date, weather, temp, humidity){
     var printTime = dayjs(date).format('DD/MM/YY')
-    var div = $('<div>');
-    var createDate = $('<p>').text(printTime);
-    var createWeather = $('<p>').text(weather);
+    var card = $('<div>');
+    card.attr('class', 'col card')
+    var cardBody = $('<div class=future card-body>');
+    var createDate = $('<p>').text(printTime + " " + weather);
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
     var compareTime = dayjs(date).format('HH:mm:ss');
     if (compareTime == "00:00:00"){
-        div.append(createDate).append(createWeather).append(createTemp).append(createHumidity);
-        $('#otherWeather').append(div);
+        cardBody.append(createDate).append(createTemp).append(createHumidity);
+        card.append(cardBody);
+        $('#otherWeather').append(card);
 
     } else{
         return;
