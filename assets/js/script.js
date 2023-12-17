@@ -1,8 +1,11 @@
 $(function() {
-    
+    var countryArray = [];
     
     $('#search-button').on('click', function(event){
         country = $('#search-input').val();
+        emptyClick();
+        countryArray.push(country);
+        saveCountry(countryArray);
         urlCountry = "http://api.openweathermap.org/geo/1.0/direct?q="+ country +"&appid=59b2f08f8e4313264cf09ebd3d5c3e14"
         event.preventDefault();
         fetch(urlCountry).then(function (response){
@@ -43,7 +46,11 @@ $(function() {
 
     });
     
+
+
 });
+
+
 
 function createTables(city, date, weather, temp, humidity, windSpeed){
     var div = $('<div>');
@@ -76,4 +83,32 @@ function createSTables(date, weather, temp, humidity){
     }
     
     
+}
+
+function saveCountry(arr){
+    var getDiv = $('#history');
+    if (arr.length > 5){
+        arr.shift();
+    }
+    for(var i = 0; i < arr.length; i++){
+        var button = $('<button class=btn type=submit id=historyClick>');
+        button.text(arr[i]);
+        getDiv.append(button);
+
+        button.on('click', function(event){ 
+            event.preventDefault();
+            var element = $(event.target).text();
+            console.log(element);
+            $('#search-input').val(element);
+        });
+    }
+    
+    
+
+}
+
+function emptyClick(){
+    $('#mainWeather').empty()
+    $('#otherWeather').empty()
+    $('#history').empty()
 }
