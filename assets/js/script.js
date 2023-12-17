@@ -17,7 +17,7 @@ $(function() {
             var lon = data[0].lon;
             var country = data[0].state;
 
-            urlForecast = "http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ lon +"&appid=59b2f08f8e4313264cf09ebd3d5c3e14&cnt=10&units=metric"
+            urlForecast = "http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ lon +"&appid=59b2f08f8e4313264cf09ebd3d5c3e14&units=metric"
             fetch(urlForecast).then(function (weather){
                 return weather.json();
             }).then(function(wData){
@@ -65,6 +65,16 @@ function createSTables(date, weather, temp, humidity){
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
 
-    div.append(createDate).append(createWeather).append(createTemp).append(createHumidity);
-    $('#otherWeather').append(div);
+    var compareTime = dayjs(date).format('HH:mm:ss');
+    if (compareTime == "00:00:00"){
+        div.append(createDate).append(createWeather).append(createTemp).append(createHumidity);
+        $('#otherWeather').append(div);
+        if (counter == 5){
+            return;
+        }
+    } else{
+        return;
+    }
+    
+    
 }
