@@ -24,16 +24,16 @@ $(function() {
                 console.log(wData)
                 for(var i=0; i < wData.list.length; i++){
                     var city = wData.city.name;
-                    var date = wData.list[i].dat_txt;
+                    var date = wData.list[i].dt_txt;
                     var weather = wData.list[i].weather[0].main;
                     var temp = wData.list[i].main.temp + "C";
                     var humidity = wData.list[i].main.humidity;
                     var windSpeed = wData.list[i].wind.speed;
                     if (i == 0){
-                        createTables(city, date, weather, temp, humidity, windSpeed, '#mainWeather');
+                        createTables(city, date, weather, temp, humidity, windSpeed);
                     }
                     else{
-                        createTables(city, date, weather, temp, humidity, windSpeed, '#otherWeather');
+                        createSTables(date, weather, temp, humidity);
                     }
                     
                 }
@@ -45,7 +45,7 @@ $(function() {
     
 });
 
-function createTables(city, date, weather, temp, humidity, windSpeed, check){
+function createTables(city, date, weather, temp, humidity, windSpeed){
     var div = $('<div>');
     var createCity = $('<p>').text(city);
     var createDate = $('<p>').text(date);
@@ -55,5 +55,16 @@ function createTables(city, date, weather, temp, humidity, windSpeed, check){
     var createSpeed = $('<p>').text(windSpeed);
 
     div.append(createCity).append(createDate).append(createWeather).append(createTemp).append(createHumidity).append(createSpeed);
-    $(check).append(div);
+    $('#mainWeather').append(div);
+}
+
+function createSTables(date, weather, temp, humidity){
+    var div = $('<div>');
+    var createDate = $('<p>').text(date);
+    var createWeather = $('<p>').text(weather);
+    var createTemp = $('<p>').text(temp);
+    var createHumidity = $('<p>').text(humidity);
+
+    div.append(createDate).append(createWeather).append(createTemp).append(createHumidity);
+    $('#otherWeather').append(div);
 }
