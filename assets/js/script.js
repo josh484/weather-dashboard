@@ -47,8 +47,9 @@ $(function() {
 
 function createTables(city, date, weather, temp, humidity, windSpeed){
     var div = $('<div>');
+    var printTime = dayjs(date).format('DD/MM/YY')
     var createCity = $('<p>').text(city);
-    var createDate = $('<p>').text(date);
+    var createDate = $('<p>').text(printTime);
     var createWeather = $('<p>').text(weather);
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
@@ -59,19 +60,17 @@ function createTables(city, date, weather, temp, humidity, windSpeed){
 }
 
 function createSTables(date, weather, temp, humidity){
+    var printTime = dayjs(date).format('DD/MM/YY')
     var div = $('<div>');
-    var createDate = $('<p>').text(date);
+    var createDate = $('<p>').text(printTime);
     var createWeather = $('<p>').text(weather);
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
-
     var compareTime = dayjs(date).format('HH:mm:ss');
     if (compareTime == "00:00:00"){
         div.append(createDate).append(createWeather).append(createTemp).append(createHumidity);
         $('#otherWeather').append(div);
-        if (counter == 5){
-            return;
-        }
+
     } else{
         return;
     }
