@@ -158,8 +158,9 @@ function getCountry(country) {
             countryArray = JSON.parse(localStorage.getItem("searches"));
             if (countryArray.length > 5) {
                 countryArray.shift();
-                saveCountry();
+                
             }
+            saveCountry();
         }
 
         var lat = data[0].lat;
