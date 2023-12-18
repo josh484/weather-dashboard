@@ -1,22 +1,24 @@
+/* create array for countries */
 var countryArray = [];
 $(function () {
 
+    /* get countries stored in local storage */
     getSearches();
+    /* update search history buttons */
     saveCountry();
+    /* when clicking search button get the value and use for the functions */
     $('#search-button').on('click', function (event) {
         event.preventDefault();
         country = $('#search-input').val();
         emptyClick();
         getCountry(country);
-        saveCountry();
+
     });
-
-
 
 });
 
 
-
+/* Creates todays weather using data from api */
 function createTables(city, date, weather, temp, humidity, windSpeed) {
     var weatherImg = $('<img>');
     var printTime = dayjs(date).format('DD/MM/YY')
@@ -36,6 +38,7 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
     $('#mainWeather').append(div);
 }
 
+/* Creates the next 5 days' weather using data from api */
 function createSTables(date, weather, temp, humidity) {
     var printTime = dayjs(date).format('DD/MM/YY')
     var card = $('<div>');
@@ -55,8 +58,8 @@ function createSTables(date, weather, temp, humidity) {
 
 }
 
+/* Prints out buttons for each country in the countryarray up to 5 */
 function saveCountry() {
-    
     var getDiv = $('#history');
     if (countryArray.length > 5) {
         countryArray.shift();
@@ -75,23 +78,26 @@ function saveCountry() {
             getCountry(country);
         });
     }
-    
+
 }
 
+/* Get from local storage the country and input to the country array */
 function getSearches() {
     var getCountry = JSON.parse(localStorage.getItem("searches"));
     if (getCountry !== null) {
         countryArray = getCountry;
     }
-    
+
 }
 
+/* Clear respective divs */
 function emptyClick() {
     $('#mainWeather').empty()
     $('#otherWeather').empty()
     $('#history').empty()
 }
 
+/* Depending on the weather change the icon */
 function icons(weather, weatherImg) {
     switch (weather) {
         case 'Clouds':
@@ -126,9 +132,11 @@ function icons(weather, weatherImg) {
     }
 }
 
+/* Call API using the country value from the search or button pressed */
 function getCountry(country) {
-    if ( country == ""){
+    if (country == "") {
         $('#hide').show()
+        saveCountry();
         return;
     }
     urlCountry = "http://api.openweathermap.org/geo/1.0/direct?q=" + country + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14"
@@ -136,19 +144,24 @@ function getCountry(country) {
     fetch(urlCountry).then(function (response) {
         return response.json();
     }).then(function (data) {
-        
         if (data.length == 0) {
-            $('#hide').show()
-            
-            return 
+            $('#hide').show();
+            saveCountry();
+            return
         } else {
             if (countryArray.includes(country) == false) {
                 countryArray.push(country);
             }
+            /* Save updated country array to local storage */
             localStorage.setItem("searches", JSON.stringify(countryArray));
             $('#hide').hide()
+            countryArray = JSON.parse(localStorage.getItem("searches"));
+            if (countryArray.length > 5) {
+                countryArray.shift();
+                saveCountry();
+            }
         }
-        
+
         var lat = data[0].lat;
         var lon = data[0].lon;
 
