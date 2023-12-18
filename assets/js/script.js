@@ -43,8 +43,9 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
 function createSTables(date, weather, temp, humidity) {
     var printTime = dayjs(date).format('DD/MM/YY')
     var card = $('<div>');
-    card.attr('class', 'col card')
-    var cardBody = $('<div class=future card-body>');
+    card.attr('class', 'col-lg card col-sm-12')
+    card.attr('id', 'future')
+    var cardBody = $('<div class=card-body>');
     var weatherImg = $('<img>');
     icons(weather, weatherImg);
     var createDate = $('<p>').text(printTime + " ");
@@ -64,7 +65,8 @@ function saveCountry() {
         countryArray.shift();
     }
     for (var i = 0; i < countryArray.length; i++) {
-        var button = $('<button class=btn type=submit id=historyClick>');
+        var button = $('<button  type=submit id=historyClick>');
+        button.attr('class', 'btn btn-primary');
         button.text(countryArray[i]);
         getDiv.append(button);
 
@@ -128,6 +130,10 @@ function icons(weather, weatherImg) {
 }
 
 function getCountry(country) {
+    if ( country == ""){
+        $('#hide').show()
+        return;
+    }
     urlCountry = "http://api.openweathermap.org/geo/1.0/direct?q=" + country + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14"
 
     fetch(urlCountry).then(function (response) {

@@ -19,15 +19,15 @@
   <div class="container-fluid" style="max-width: 1400px">
     <div class="row">
       <aside class="col-lg-3 pb-3">
-        <h2 id="form-heading" class="mt-1 h3 form-label">
+        <h2 id="form-heading" class="form-label">
           Search for a City:
         </h2>
         <form id="search-form" class="form">
           <div class="form-inline form-group">
             <div class="input-group" id="submitBox">
-              <input class="form-input weather-search" type="text" id="search-input" placeholder="London" aria-labelledby="form-heading" aria-controls="today forecast" required>
+              <input class="form-input weather-search" type="text" id="search-input" placeholder="London" required aria-labelledby="form-heading" aria-controls="today forecast">
               <div class="input-group-append" id="buttonBox">
-                <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
+                <button type="submit" class="btn search-button btn-primary" id="search-button" aria-label="submit search">
                   Search
                 </button>
                 <hr class="hr weather-hr" />
@@ -36,12 +36,13 @@
             </div>
           </div>
         </form>
-        <p id="hide">hi </p>
+        <p id="hide">Please Type A Real City </p>
+        <hr id="line" />
         <div class="list-group" id="history"></div>
       </aside>
 
       <div class="col-lg-9 pb-3">
-        <section id="today" class="mt-3" role="region" aria-live="polite">
+        <section id="today" class="mt-3 col-lg-12" role="region" aria-live="polite">
           <div class="card">
             <div class="card-header">
               Featured
@@ -53,7 +54,7 @@
         </section>
         <section id="forecast" class="row mt-3" role="region" aria-live="polite">
           <div class="container">
-            <div class="row" id="otherWeather">
+            <div class="row grid gap-1" id="otherWeather">
 
             </div>
           </div>

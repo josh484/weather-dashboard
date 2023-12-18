@@ -15,6 +15,8 @@ body {
 #hide{
   color: #B00020;
   display: none;
+  text-align: center;
+  margin-top: 20px;
 }
 
 #submitBox, #buttonBox {
@@ -32,18 +34,24 @@ body {
 #historyClick, #search-button{
   background-color: #6200EE;
   color: white;
-
 }
 
-#past {
-  background-color: #5A5A5A;
+#historyClick{
+  margin-top: 10px;
 }
 
-#present {
-  background-color: #B00020;
+h2 {
+  color: white;
+  text-align: center;
+}
+
+
+#line {
+  color: white;
 }
 
 #future {
-  background-color: #08b8a6;
+  background-color: #5A5A5A;
+  color: white;
 }
 
