@@ -1,0 +1,49 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  background-color: #121212;
+}
+
+.saveBtn {
+  background-color: #6200EE;
+  color: white;
+  height: 75%;
+  width: 75%;
+}
+
+#hide{
+  color: red;
+  display: none;
+}
+
+#submitBox, #buttonBox {
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.btn-primary {
+  --bs-btn-border-color: #6200EE;
+  --bs-btn-hover-bg: #3700B3;
+  --bs-btn-hover-border-color: #3700B3;
+}
+
+#historyClick, #search-button{
+  background-color: #6200EE;
+  color: white;
+
+}
+
+#past {
+  background-color: #5A5A5A;
+}
+
+#present {
+  background-color: #B00020;
+}
+
+#future {
+  background-color: #08b8a6;
+}
+

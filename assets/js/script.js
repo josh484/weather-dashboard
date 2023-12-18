@@ -6,9 +6,12 @@ $(function () {
         event.preventDefault();
         country = $('#search-input').val();
         emptyClick();
+        getCountry(country);
         countryArray.push(country);
         saveCountry();
-        getCountry(country);
+        
+        
+        
 
 
     });
@@ -134,9 +137,12 @@ function getCountry(country) {
     fetch(urlCountry).then(function (response) {
         return response.json();
     }).then(function (data) {
-        if (data.length === 0) {
-            alert('not a city');
+        if (data.length == 0) {
+            $('#hide').show()
             return
+        } else{
+            $('#hide').hide()
+            
         }
         console.log(data)
         var lat = data[0].lat;
