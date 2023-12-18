@@ -25,9 +25,8 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
     var createCity = $('<p>').text(city + " " + printTime);
     createCity.append(weatherImg);
     console.log(weather);
-    if (weather == "Clouds") {
-        weatherImg.attr('src', './assets/icons/cloudy-50.png');
-    }
+
+    icons(weather, weatherImg);
     var div = $('<div>');
     
 
@@ -45,7 +44,10 @@ function createSTables(date, weather, temp, humidity) {
     var card = $('<div>');
     card.attr('class', 'col card')
     var cardBody = $('<div class=future card-body>');
-    var createDate = $('<p>').text(printTime + " " + weather);
+    var weatherImg = $('<img>');
+    icons(weather, weatherImg);
+    var createDate = $('<p>').text(printTime + " ");
+    createDate.append(weatherImg)
     var createTemp = $('<p>').text(temp);
     var createHumidity = $('<p>').text(humidity);
 
@@ -90,6 +92,40 @@ function emptyClick() {
     $('#mainWeather').empty()
     $('#otherWeather').empty()
     $('#history').empty()
+}
+
+function icons(weather, weatherImg){
+    switch(weather){
+        case 'Clouds':
+        weatherImg.attr('src', './assets/icons/cloudy-50.png');
+        weatherImg.attr('alt', 'cloudy-50 by Icons8');
+        break;
+
+        case 'Thunderstorm':
+        weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
+        weatherImg.attr('alt', 'thunder-30 by Icons8');
+        break;
+
+        case 'Drizzle':
+        weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
+        weatherImg.attr('alt', 'Drizzle icon by Icons8');
+        break;
+
+        case 'Rain':
+        weatherImg.attr('src', './assets/icons/icons8-rain-50.png');
+        weatherImg.attr('alt', 'Rain icon by Icons8');
+        break;
+
+        case 'Snow':
+        weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
+        weatherImg.attr('alt', 'Snow icon by Icons8');
+        break;
+
+        case 'Clear':
+        weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
+        weatherImg.attr('alt', 'Sun icon by Icons8');
+        break;
+    }
 }
 
 function getCountry(country) {
