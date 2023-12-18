@@ -7,13 +7,12 @@ $(function () {
         country = $('#search-input').val();
         emptyClick();
         getCountry(country);
-        countryArray.push(country);
+        if (countryArray.includes(country) == false) {
+            countryArray.push(country);
+        }
+
         saveCountry();
-        
-        
-        
-
-
+        localStorage.setItem("searches", JSON.stringify(countryArray));
     });
 
 
@@ -27,14 +26,13 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
     var printTime = dayjs(date).format('DD/MM/YY')
     var createCity = $('<p>').text(city + " " + printTime);
     createCity.append(weatherImg);
-    console.log(weather);
 
     icons(weather, weatherImg);
     var div = $('<div>');
-    
 
-    var createTemp = $('<p>').text("Temperature: "+ temp + "°C");
-    var createHumidity = $('<p>').text("Humidity: "+ humidity + "%");
+
+    var createTemp = $('<p>').text("Temperature: " + temp + "°C");
+    var createHumidity = $('<p>').text("Humidity: " + humidity + "%");
     var createSpeed = $('<p>').text("Windspeed: " + windSpeed + "km");
 
 
@@ -51,12 +49,12 @@ function createSTables(date, weather, temp, humidity) {
     icons(weather, weatherImg);
     var createDate = $('<p>').text(printTime + " ");
     createDate.append(weatherImg)
-    var createTemp = $('<p>').text("Temperature: "+ temp + "°C");
-    var createHumidity = $('<p>').text("Humidity: "+ humidity + "%");
+    var createTemp = $('<p>').text("Temperature: " + temp + "°C");
+    var createHumidity = $('<p>').text("Humidity: " + humidity + "%");
 
-        cardBody.append(createDate).append(createTemp).append(createHumidity);
-        card.append(cardBody);
-        $('#otherWeather').append(card);
+    cardBody.append(createDate).append(createTemp).append(createHumidity);
+    card.append(cardBody);
+    $('#otherWeather').append(card);
 
 }
 
@@ -78,9 +76,7 @@ function saveCountry() {
             getCountry(country);
         });
     }
-
-    localStorage.setItem("searches", JSON.stringify(countryArray));
-
+        
 }
 
 function getSearches() {
@@ -97,37 +93,37 @@ function emptyClick() {
     $('#history').empty()
 }
 
-function icons(weather, weatherImg){
-    switch(weather){
+function icons(weather, weatherImg) {
+    switch (weather) {
         case 'Clouds':
-        weatherImg.attr('src', './assets/icons/cloudy-50.png');
-        weatherImg.attr('alt', 'cloudy-50 by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/cloudy-50.png');
+            weatherImg.attr('alt', 'cloudy-50 by Icons8');
+            break;
 
         case 'Thunderstorm':
-        weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
-        weatherImg.attr('alt', 'thunder-30 by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
+            weatherImg.attr('alt', 'thunder-30 by Icons8');
+            break;
 
         case 'Drizzle':
-        weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
-        weatherImg.attr('alt', 'Drizzle icon by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/icons8-thunder-30.png');
+            weatherImg.attr('alt', 'Drizzle icon by Icons8');
+            break;
 
         case 'Rain':
-        weatherImg.attr('src', './assets/icons/icons8-rain-50.png');
-        weatherImg.attr('alt', 'Rain icon by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/icons8-rain-50.png');
+            weatherImg.attr('alt', 'Rain icon by Icons8');
+            break;
 
         case 'Snow':
-        weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
-        weatherImg.attr('alt', 'Snow icon by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
+            weatherImg.attr('alt', 'Snow icon by Icons8');
+            break;
 
         case 'Clear':
-        weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
-        weatherImg.attr('alt', 'Sun icon by Icons8');
-        break;
+            weatherImg.attr('src', './assets/icons/icons8-snow-50.png');
+            weatherImg.attr('alt', 'Sun icon by Icons8');
+            break;
     }
 }
 
@@ -137,14 +133,14 @@ function getCountry(country) {
     fetch(urlCountry).then(function (response) {
         return response.json();
     }).then(function (data) {
+        
         if (data.length == 0) {
             $('#hide').show()
-            return
-        } else{
+            return 
+        } else {
             $('#hide').hide()
-            
         }
-        console.log(data)
+
         var lat = data[0].lat;
         var lon = data[0].lon;
 
@@ -153,7 +149,6 @@ function getCountry(country) {
             return weather.json();
         }).then(function (wData) {
             var pastTime = 0;
-            console.log(wData)
             for (var i = 0; i < wData.list.length; i++) {
                 var city = wData.city.name;
                 var date = wData.list[i].dt_txt;
@@ -161,20 +156,19 @@ function getCountry(country) {
                 var temp = wData.list[i].main.temp;
                 var humidity = wData.list[i].main.humidity;
                 var windSpeed = wData.list[i].wind.speed;
-                console.log(date);
                 if (i == 0) {
                     createTables(city, date, weather, temp, humidity, windSpeed);
                 }
                 else {
                     var compareTime = dayjs(date).format('DD');
-                    if(dayjs(wData.list[0].dt_txt).format('DD') != compareTime){
+                    if (dayjs(wData.list[0].dt_txt).format('DD') != compareTime) {
                         if (pastTime != compareTime) {
                             pastTime = compareTime;
                             createSTables(date, weather, temp, humidity);
-                             } 
+                        }
                     }
-                    
-                    
+
+
                 }
 
             }
@@ -182,3 +176,4 @@ function getCountry(country) {
         })
     });
 }
+
