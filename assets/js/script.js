@@ -30,9 +30,9 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
     var div = $('<div>');
     
 
-    var createTemp = $('<p>').text(temp);
-    var createHumidity = $('<p>').text(humidity);
-    var createSpeed = $('<p>').text(windSpeed);
+    var createTemp = $('<p>').text("Temperature: "+ temp + "°C");
+    var createHumidity = $('<p>').text("Humidity: "+ humidity + "%");
+    var createSpeed = $('<p>').text("Windspeed: " + windSpeed + "km");
 
 
     div.append(createCity).append(createTemp).append(createHumidity).append(createSpeed);
@@ -48,8 +48,8 @@ function createSTables(date, weather, temp, humidity) {
     icons(weather, weatherImg);
     var createDate = $('<p>').text(printTime + " ");
     createDate.append(weatherImg)
-    var createTemp = $('<p>').text(temp);
-    var createHumidity = $('<p>').text(humidity);
+    var createTemp = $('<p>').text("Temperature: "+ temp + "°C");
+    var createHumidity = $('<p>').text("Humidity: "+ humidity + "%");
 
         cardBody.append(createDate).append(createTemp).append(createHumidity);
         card.append(cardBody);
@@ -152,7 +152,7 @@ function getCountry(country) {
                 var city = wData.city.name;
                 var date = wData.list[i].dt_txt;
                 var weather = wData.list[i].weather[0].main;
-                var temp = wData.list[i].main.temp + "C";
+                var temp = wData.list[i].main.temp;
                 var humidity = wData.list[i].main.humidity;
                 var windSpeed = wData.list[i].wind.speed;
                 console.log(date);
