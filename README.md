@@ -1,6 +1,6 @@
 # weather-dashboard
 A weather report page that outputs todays weather report and the next 5 days for any given city.
-Link to Webpage: https://josh484.github.io/work-day-scheduler/
+Link to Webpage: https://josh484.github.io/weather-dashboard/
 ## Description 
 This project mainly highlights my understanding of APIs and how they work in tandem with my projects. For this project I have used the weatherapi in order to get the location of the city that the user inputs and then get the weather data for that city and output the weather data for the next 5 days for that city. 
 ## Installation
