@@ -73,8 +73,6 @@ function saveCountry() {
         button.on('click', function (event) {
             event.preventDefault();
             var country = $(event.target).text();
-            $('#mainWeather').empty()
-            $('#otherWeather').empty()
             getCountry(country);
         });
     }
@@ -139,7 +137,7 @@ function getCountry(country) {
         saveCountry();
         return;
     }
-    urlCountry = "http://api.openweathermap.org/geo/1.0/direct?q=" + country + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14"
+    urlCountry = "https://api.openweathermap.org/geo/1.0/direct?q=" + country + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14"
 
     fetch(urlCountry).then(function (response) {
         return response.json();
@@ -160,13 +158,14 @@ function getCountry(country) {
                 countryArray.shift();
                 
             }
+            emptyClick();
             saveCountry();
         }
 
         var lat = data[0].lat;
         var lon = data[0].lon;
 
-        urlForecast = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14&units=metric"
+        urlForecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=59b2f08f8e4313264cf09ebd3d5c3e14&units=metric"
         fetch(urlForecast).then(function (weather) {
             return weather.json();
         }).then(function (wData) {
