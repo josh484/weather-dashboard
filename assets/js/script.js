@@ -2,17 +2,13 @@ var countryArray = [];
 $(function () {
 
     getSearches();
+    saveCountry();
     $('#search-button').on('click', function (event) {
         event.preventDefault();
         country = $('#search-input').val();
         emptyClick();
         getCountry(country);
-        if (countryArray.includes(country) == false) {
-            countryArray.push(country);
-        }
-
         saveCountry();
-        localStorage.setItem("searches", JSON.stringify(countryArray));
     });
 
 
@@ -43,7 +39,7 @@ function createTables(city, date, weather, temp, humidity, windSpeed) {
 function createSTables(date, weather, temp, humidity) {
     var printTime = dayjs(date).format('DD/MM/YY')
     var card = $('<div>');
-    card.attr('class', 'col-lg card col-sm-12')
+    card.attr('class', 'col-lg card ')
     card.attr('id', 'future')
     var cardBody = $('<div class=card-body>');
     var weatherImg = $('<img>');
@@ -60,6 +56,7 @@ function createSTables(date, weather, temp, humidity) {
 }
 
 function saveCountry() {
+    
     var getDiv = $('#history');
     if (countryArray.length > 5) {
         countryArray.shift();
@@ -78,7 +75,7 @@ function saveCountry() {
             getCountry(country);
         });
     }
-        
+    
 }
 
 function getSearches() {
@@ -86,7 +83,7 @@ function getSearches() {
     if (getCountry !== null) {
         countryArray = getCountry;
     }
-    saveCountry(countryArray);
+    
 }
 
 function emptyClick() {
@@ -142,11 +139,16 @@ function getCountry(country) {
         
         if (data.length == 0) {
             $('#hide').show()
+            
             return 
         } else {
+            if (countryArray.includes(country) == false) {
+                countryArray.push(country);
+            }
+            localStorage.setItem("searches", JSON.stringify(countryArray));
             $('#hide').hide()
         }
-
+        
         var lat = data[0].lat;
         var lon = data[0].lon;
 

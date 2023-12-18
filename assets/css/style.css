@@ -36,6 +36,17 @@ body {
   color: white;
 }
 
+#mainWeather{
+  background-color: #5A5A5A;
+  color: white;
+}
+
+#mainTitle{
+  background-color: #5A5A5A;
+  color: white;
+
+}
+
 #historyClick{
   margin-top: 10px;
 }
@@ -53,5 +64,8 @@ h2 {
 #future {
   background-color: #5A5A5A;
   color: white;
+  margin: auto;
 }
+
+
 
